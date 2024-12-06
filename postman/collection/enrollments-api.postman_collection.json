@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "6680c467-2e8e-43a5-bbdd-584921212ccb",
+		"name": "Enrollments API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7811012"
+	},
+	"item": [
+		{
+			"name": "Enrollment",
+			"item": [
+				{
+					"name": "Enrollment Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"if (pm.response.code==201) {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    let id = jsonData.id;\r",
+									"    pm.environment.set(\"enrollment_id\", id);\r",
+									"    console.log(\"Enrollment ID: \" + id);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"trainingProgramId\": \"b1b28ed6-f22d-48c3-aaae-0b92acaf024f\",\r\n    \"organizationId\": 1,\r\n    \"type\": \"MANDATORY\",\r\n    \"dueAt\": \"2023-12-31T12:00:00+00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/enrollments/",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"enrollments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enrollment Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/enrollments/{{enrollment_id}}/",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"enrollments",
+								"{{enrollment_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enrollment Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/enrollments/{{enrollment_id}}/",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"enrollments",
+								"{{enrollment_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enrollment List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/enrollments/",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"enrollments",
+								""
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enrollment Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"MANDATORY\",\r\n  \"dueAt\": \"2024-01-01T12:00:00+00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/enrollments/{{enrollment_id}}/",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"enrollments",
+								"{{enrollment_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "Event Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"let id = jsonData.id;\r",
+									"pm.environment.set(\"event_id\", id);\r",
+									"console.log(\"Event ID: \" + id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cohortId\": \"b839b611-e19b-4743-99c0-08a1b4bda9ea\",\r\n    \"trainingProgramId\": \"d739b611-e19b-4743-99c0-08a1b4bda9ea\",\r\n    \"type\": \"FACILITATED\",\r\n    \"title\": \"Introduction to active listening\",\r\n    \"objectives\": \"Helps you build trust and understand other people's situations and feelings\",\r\n    \"startAt\": \"2023-01-05T15:30:00+00:00\",\r\n    \"endAt\": \"2023-01-05T17:30:00+00:00\",\r\n    \"timezone\": \"Europe/Paris\",\r\n    \"location\": {\r\n        \"type\": \"MS_TEAMS\",\r\n        \"link\": \"https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTRlFjc5ZTktMzllZC00ZWVmLWEzYWMtZGQ0MTdlNWQ3ZDg4%40thread.v2/0?context=%7b%22Tid%22%3a%2224ff245f-890e-46ef-be2f-a5202976b7a5%22%2c%22Oid%22%3a%224aed9615-e457-49f3-85af-65e3a92aa995%22%7d\",\r\n        \"description\": \"9th floor - Room 9-W-58\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/events/",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/events/{{event_id}}",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"events",
+								"{{event_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/events/{{event_id}}",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"events",
+								"{{event_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/events/",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Updated Event Title\",\r\n    \"objectives\": \"We could generate a great list of objectives using ChatGPT.\",\r\n    \"type\": \"FACILITATED\",\r\n    \"startAt\": \"2023-06-03T08:30:00-03:00\",\r\n    \"endAt\": \"2023-06-03T12:30:00-03:00\",\r\n    \"location\": {\r\n      \"type\": \"MS_TEAMS\",\r\n      \"description\": \"Updated Location description\",\r\n      \"link\": \"https://teams.microsoft.com/l/meetup-join/19%3ameeting_xxx%40thread.v2/0?context=zzz\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{enrollments_domain}}/v4/events/{{event_id}}",
+							"host": [
+								"{{enrollments_domain}}"
+							],
+							"path": [
+								"v4",
+								"events",
+								"{{event_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{phoenix_access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{enrollments_api_key}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-API-Key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

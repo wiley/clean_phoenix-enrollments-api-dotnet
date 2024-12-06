@@ -1,0 +1,69 @@
+{
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Enrollments.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:3001/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://0.0.0.0:5114;http://0.0.0.0:5113",
+        "MONGO_DB_NAME": "darwin_enrollments_api",
+        "MONGO_CONNECTION_STRING": "mongodb://root:example@localhost:27017/?authSource=admin",
+        "USERS_API_BASE_URL": "http://users-api.nonprod.darwin.wiley.host/api/v4/users",
+        "TRAINING_PROGRAM_API_BASE_URL": "https://learning-objects.dev.sgp.wiley.host/v4/training-programs",
+        "COMPANY_API_BASE_URL": "http://company-api.qe01.darwin.wiley.host/api/v1/organizations",
+        "USERS_API_KEY": "",
+        "COMPANY_API_KEY": "",
+        "KAFKA_HOST": "kafka.dev.darwin.private.wiley.host:9092",
+        "KAFKA_TOPIC": "wly.glb.darwin.enrollments",
+        "KEYCLOAK_BASE_URL": "https://keycloak.nonprod.darwin.wiley.host",
+        "KEYCLOAK_REALM": "darwin",
+        "KEYCLOAK_AUDIENCE": "account",
+        "KEYCLOAK_REQUIRE_METADATA": "true",
+        "API_KEY": "secret",
+        "OPA_BASE_URL": "https://opa.nonprod.darwin.wiley.host"
+      },
+      "applicationUrl": "https://0.0.0.0:3001;http://0.0.0.0:3000"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:5013/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://0.0.0.0:5114;http://0.0.0.0:5113",
+        "MONGO_DB_NAME": "darwin_enrollments_api",
+        "MONGO_CONNECTION_STRING": "mongodb://root:example@localhost:27017/?authSource=admin",
+        "USERS_API_BASE_URL": "http://users-api/api/v4/users",
+        "TRAINING_PROGRAM_API_BASE_URL": "https://learning-objects.dev.sgp.wiley.host/v4/training-programs",
+        "COMPANY_API_BASE_URL": "http://company-api/api/v1/organizations",
+        "USERS_API_KEY": "",
+        "COMPANY_API_KEY": "",
+        "KEYCLOAK_BASE_URL": "https://keycloak.nonprod.darwin.wiley.host",
+        "KEYCLOAK_REALM": "darwin",
+        "KEYCLOAK_AUDIENCE": "account",
+        "KEYCLOAK_REQUIRE_METADATA": "true",
+        "API_KEY": "secret",
+        "OPA_BASE_URL": "https://opa.nonprod.darwin.wiley.host"
+      },
+      "distributionName": "Ubuntu-22.04"
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:12732",
+      "sslPort": 44317
+    }
+  }
+}

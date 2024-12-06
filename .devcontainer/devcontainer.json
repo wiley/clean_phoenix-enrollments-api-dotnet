@@ -1,0 +1,20 @@
+{
+    "name": "enrollments container",
+    "dockerComposeFile": [
+        "../dev/docker-compose.yaml"
+    ],
+    "service": "enrollments-api",
+    "workspaceFolder": "/app",
+    "customizations":{
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csdevkit",
+                "fernandoescolar.vscode-solution-explorer",
+                "eamodio.gitlens",
+                "shd101wyy.markdown-preview-enhanced",
+                "aliasadidev.nugetpackagemanagergui"
+            ]
+        }
+    },
+    "shutdownAction": "stopCompose"
+}

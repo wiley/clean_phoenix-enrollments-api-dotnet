@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  enrollments-api:
+    build:
+        context: .
+    working_dir: /app
+    volumes:
+      - "..:/app"
+      - "/app/run"
+    entrypoint: "/app/run/entrypoint.dev.sh"
+    ports:
+      - "50111:80"
+    environment:
+      - API_KEY=Secret
+      - ASPNETCORE_ENVIRONMENT=Development
+      - COMPANY_API_BASE_URL=http://company-api/api/v4/organizations
+      - COMPANY_API_KEY=Secret
+      - OPA_BASE_URL=http://opa-service:8181
+      - KEYCLOAK_AUDIENCE=account
+      - KEYCLOAK_BASE_URL=http://keycloak:8080
+      - KEYCLOAK_REALM=darwin
+      - MONGO_CONNECTION_STRING=mongodb://root:root@mongodb:27017/
+      - MONGO_DB_NAME=enrollments-api
+      - TRAINING_PROGRAM_API_BASE_URL=http://contents-api/v4/training-programs
+      - USERS_API_BASE_URL=http://users-api:50103/api/v4/users
+      - USERS_API_KEY=Secret
+      - CONTENTS_API_KEY=Secret
+      - KAFKA_HOST=kafka:9092
+      - KAFKA_TOPIC=ck-phoenix-enrollment
+    networks:
+      - PL_AUTOMATION-network
+
+networks:
+  PL_AUTOMATION-network:
+    name: PL_AUTOMATION-network
+    external: true

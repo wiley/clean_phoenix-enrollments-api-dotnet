@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ical.Net" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.8" />
+    <PackageReference Include="WLS.KafkaMessenger" Version="5.4.0" />
+    <PackageReference Include="DarwinAuthorization" Version="1.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enrollments.Domain\Enrollments.Domain.csproj" />
+    <ProjectReference Include="..\Enrollments.Infrastructure.Interface\Enrollments.Infrastructure.Interface.csproj" />
+  </ItemGroup>
+
+</Project>

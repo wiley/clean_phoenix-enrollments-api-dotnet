@@ -1,0 +1,82 @@
+# Default values for phoenix-enrollments-api
+# This file is in YAML format
+# Declared variables to be passed into $/templates files
+
+appName: enrollments-api
+namespace: phoenix-prod
+
+image:
+  repository: 988207228673.dkr.ecr.eu-central-1.amazonaws.com/phoenix-enrollments-api
+  tag: prod
+  pullPolicy: Always
+
+imagePullSecrets: []
+
+service:
+  type: NodePort
+  port: 80
+
+ingress:
+  external:
+    sslRedirect: "false"
+    forceSslRedirect: "false"
+
+dns:
+  internal: prod.sgp.private.wiley.host
+  external: prod.sgp.wiley.host
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
+# replicacount has no impact if autoscaling.enabled = true
+replicacount: 1
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 85
+
+env_vars:
+  data:
+    LOG_JSON: "true"
+    LOG_MINIMUMLEVEL: Information
+    MONGO_DB_NAME: enrollments-api
+    MONGO_TLS_CA_FILE_PATH: "/cert/global-bundle.pem"
+    USERS_API_BASE_URL: "http://users-api/api/v4/users"
+    TRAINING_PROGRAM_API_BASE_URL: "http://contents-api/v4/training-programs"
+    COMPANY_API_BASE_URL: "http://company-api/api/v4/organizations"
+    OPA_BASE_URL: "http://opa"
+    KEYCLOAK_BASE_URL: "https://keycloak.prod.sgp.wiley.host"
+    KEYCLOAK_REALM: "phoenix"
+    KEYCLOAK_AUDIENCE: "account"
+    KEYCLOAK_REQUIRE_METADATA: true
+    KAFKA_HOST: "b-1.eksprodeu.5cp134.c8.kafka.eu-central-1.amazonaws.com:9092,b-2.eksprodeu.5cp134.c8.kafka.eu-central-1.amazonaws.com:9092"
+    KAFKA_TOPIC: "ck-phoenix-enrollment"
+
+externalsecrets:
+  refreshInterval: 1m
+  secretCreationPolicy: Owner
+  secretStoreName: eks-prod-eu-secret-manager
+  secretStoreType: ClusterSecretStore
+  data:
+  - keyValue: eks/phoenix
+    nameValue: USERS_API_KEY
+    propertyValue: USERS_API_KEY
+  - keyValue: eks/phoenix
+    nameValue: COMPANY_API_KEY
+    propertyValue: COMPANY_API_KEY
+  - keyValue: eks/phoenix
+    nameValue: MONGO_CONNECTION_STRING
+    propertyValue: ENROLLMENTS_API_PROD_MONGO_CONNECTION_STRING
+  - keyValue: eks/phoenix
+    nameValue: API_KEY
+    propertyValue: ENROLLMENTS_API_KEY
+  - keyValue: eks/phoenix
+    nameValue: CONTENTS_API_KEY
+    propertyValue: CONTENTS_API_KEY
